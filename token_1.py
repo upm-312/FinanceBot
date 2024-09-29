@@ -1,0 +1,1 @@
+TOKEN = 't.DoRnMYw4mgCw6RKZb9OtozgIByzl4BACnj24WH2Zz0YhQ1_9OV2_CiLwM4FpyTEFK8UVe5yONaqZJtQbr-TsoA' #токен моего счета только для чтения
