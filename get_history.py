@@ -29,7 +29,7 @@ def get_history(FIGI):
         df = df[['time', 'volume', 'open', 'close']]
 
         # Сохраняем DataFrame в CSV файл
-        df.to_csv('./historical_data/historical_data.csv', index=False)
+        df.to_csv('C:/FinanceBot/FinanceBot/historical_data/historical_data.csv', index=False)
     
     print("Исторические данные сохранены в файл 'historical_data.csv', приводим к читаемому виду")
     return 0

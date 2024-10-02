@@ -22,7 +22,7 @@ def parse_quotation(quotation_str):
 
 def process_quotation_data():
     # Чтение CSV файла
-    df = pd.read_csv('./historical_data/historical_data.csv')
+    df = pd.read_csv('C:/FinanceBot/FinanceBot/historical_data/historical_data.csv')
 
     # Преобразование значений Quotation в Decimal для столбцов open, close
     for column in ['open', 'close']:
@@ -35,7 +35,7 @@ def process_quotation_data():
     df['time'] = df['time'].str.replace(r'\+00:00$', '', regex=True)
 
     # Сохранение результата в новый CSV файл
-    df.to_csv('./historical_data/historical_data_filtered.csv', index=False)
+    df.to_csv('C:/FinanceBot/FinanceBot/historical_data/historical_data_filtered.csv', index=False)
     print("Файл приведен к читаемому виду и сохранен в historical_data_filtered.csv")
 if __name__ == "__main__":  # Исправлено на __name__
     process_quotation_data()

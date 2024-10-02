@@ -1,9 +1,9 @@
 import pandas as pd
 
-def find_FIGI():
+def find_FIGI(ticker):
     try:
         # Читаем файл с данными
-        figis = pd.read_csv('source/name_figi_ticker_ru.txt', sep='\t', encoding='utf-8', on_bad_lines='skip')
+        figis = pd.read_csv('C:/FinanceBot/FinanceBot/source/name_figi_ticker_ru.txt', sep='\t', encoding='utf-8', on_bad_lines='skip')
     except FileNotFoundError:
         print("Файл не найден. Проверьте путь к файлу.")
         return
@@ -11,12 +11,8 @@ def find_FIGI():
         print(f"Произошла ошибка при чтении файла: {e}")
         return
 
-    # Вывод первых 5 строк в виде таблицы
-    print("Первые 5 строк из файла:")
-    print(figis.head())  # Выводим первые 5 строк
-
     # Вводим тикер
-    user_input = input("Введите тикер: ").strip()
+    user_input = ticker
 
     # Поиск по тикеру (2-й столбец)
     result_by_ticker = figis.loc[figis.iloc[:, 2].str.lower() == user_input.lower(), figis.columns[1]]  # FIGI в 1-м столбце
