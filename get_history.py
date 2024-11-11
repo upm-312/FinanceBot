@@ -12,8 +12,8 @@ def get_history(FIGI):
         # Получаем исторические данные
         for candle in client.get_all_candles(
             figi=FIGI,
-            from_=now() - timedelta(days=3*365),
-            interval=CandleInterval.CANDLE_INTERVAL_HOUR,
+            from_=now() - timedelta(days=5*365),
+            interval=CandleInterval.CANDLE_INTERVAL_4_HOUR,
         ):
             data.append({
                 'time': candle.time,
