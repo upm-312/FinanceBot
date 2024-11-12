@@ -2,7 +2,7 @@ from datetime import timedelta
 import pandas as pd
 from tinkoff.invest import CandleInterval, Client
 from tinkoff.invest.utils import now
-from token_1 import TOKEN
+from functions.token_1 import TOKEN
 
 def get_history(FIGI):
     with Client(TOKEN) as client:

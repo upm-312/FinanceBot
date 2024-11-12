@@ -1,25 +1,16 @@
-import telebot 
+import telebot
 from telebot import types
-from get_names import get_names  # Импортируем функцию из другого файла
-from main import main
-from token_1 import TOKEN
+import requests
 
-# Замените 'YOUR_API_TOKEN' на токен, полученный от BotFather
+from functions.get_names import get_names  # Импортируем функцию из другого файла
+from functions.token_1 import TOKEN   
+from functions.main_menu import main_menu # Импортируем функцию из другого файла
+from functions.process_ticker import process_ticker # Импортируем функцию из другого файла
+from functions.handle_course import get_currency_rates
+
 API_TOKEN = '8185806685:AAEwqjsn_YyjcKjL_iTWdlqwRGO01XBWaLA'
 bot = telebot.TeleBot(API_TOKEN)
 
-# Функция для создания главного меню с кнопками
-def main_menu(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    search_button = types.KeyboardButton("Поиск 🔍")
-    course_button = types.KeyboardButton("Курс 📈")
-    info_button = types.KeyboardButton("Инфо ℹ️")
-    menu_button = types.KeyboardButton("Меню 📱")
-    refresh_button = types.KeyboardButton("Обновить 🔁")  # Новая кнопка Обновить
-    markup.add(search_button, course_button, info_button, menu_button, refresh_button)
-    bot.send_message(message.chat.id, "Выберите действие:", reply_markup=markup)
-
-# Обработка команды /start
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Привет! Я ваш FinanceBot. Я помогу вам увеличить доходность вашего инвестиционного портфеля. Чтобы узнать обо всех моих функциях нажмите Меню")
@@ -31,19 +22,51 @@ def handle_search(message):
     msg = bot.reply_to(message, "Пожалуйста, напишите тикер интересующей вас компании, например тикер Росбанка - ROSB:")
     bot.register_next_step_handler(msg, process_ticker)
 
-# Обработка тикера
 def process_ticker(message):
-    ticker = message.text
-    main(ticker)
-    bot.reply_to(message, f"Создан файл со стоимостью акций за последние 3 года со свечой 1 час по тикеру - : {ticker}.")
-    main_menu(message)
+    ticker = message.text.strip()  # Получаем тикер от пользователя
 
-# Обработка нажатия кнопки "Курс"
+    # Здесь вы можете добавить код для обработки тикера, например, проверка его валидности
+
+    # Создаем клавиатуру с кнопками "Прогноз", "График" и "Назад"
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn_forecast = types.KeyboardButton("Прогноз 📈")
+    btn_chart = types.KeyboardButton("График 📊")
+    btn_back = types.KeyboardButton("Назад ⬅️")
+    keyboard.add(btn_forecast, btn_chart, btn_back)
+
+    # Отправляем сообщение с клавиатурой
+    bot.send_message(message.chat.id, f"Вы ввели тикер: {ticker}. Выберите действие:", reply_markup=keyboard)
+
+# Обработчики для кнопок "Прогноз", "График" и "Назад"
+@bot.message_handler(func=lambda message: message.text == "Прогноз 📈")
+def handle_forecast(message):
+    # Логика для обработки прогноза
+    bot.send_message(message.chat.id, "Здесь будет ваш прогноз.")
+
+@bot.message_handler(func=lambda message: message.text == "График 📊")
+def handle_chart(message):
+    # Логика для обработки графика
+    bot.send_message(message.chat.id, "Здесь будет ваш график.")
+
+@bot.message_handler(func=lambda message: message.text == "Назад ⬅️")
+def handle_back(message):
+    # Логика для обработки кнопки "Назад"
+    bot.send_message(message.chat.id, "Вы вернулись назад. Какую команду вы хотите выполнить?", reply_markup=get_main_menu_keyboard())
+
+def get_main_menu_keyboard():
+    # Создаем клавиатуру для главного меню
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn_search = types.KeyboardButton("Поиск 🔍")
+    # Добавьте другие кнопки главного меню по мере необходимости
+    keyboard.add(btn_search)
+    return keyboard
+
+
 @bot.message_handler(func=lambda message: message.text == "Курс 📈")
-def handle_course(message):
-    bot.reply_to(message, "Эта кнопка пока ничего не делает. Тут будет транслироваться курс USD, EUR, BTC")
-    main_menu(message)
-
+def send_currency_rates(message):
+    rates = get_currency_rates()
+    bot.reply_to(message, rates)
+    
 # Обработка нажатия кнопки "Инфо"
 @bot.message_handler(func=lambda message: message.text == "Инфо ℹ️")
 def handle_info(message):
@@ -75,8 +98,6 @@ def handle_refresh(message):
         bot.reply_to(message, f"Произошла ошибка при обновлении файла: {str(e)}")
     main_menu(message)
 
-
 # Запуск бота
 if __name__ == '__main__':
     bot.polling()
-

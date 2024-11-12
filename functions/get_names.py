@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from tinkoff.invest import Client, InstrumentStatus
 from tinkoff.invest.services import InstrumentsService
-from token_1 import TOKEN
+from functions.token_1 import TOKEN
 
 def get_names(TOKEN):
     pd.set_option('display.max_rows', 500)

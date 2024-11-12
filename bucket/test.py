@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 from tinkoff.invest import CandleInterval, Client
 from tinkoff.invest.utils import now
-from token_1 import TOKEN
+from functions.token_1 import TOKEN
 import pandas as pd
 
 def main():

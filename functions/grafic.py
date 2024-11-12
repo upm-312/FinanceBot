@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.dates as mdates
 from datetime import datetime
 import matplotlib.colors as mcolors
+
 def rgb(r, g, b):
     return mcolors.to_hex([r/255, g/255, b/255])
 
@@ -39,7 +40,7 @@ plt.tick_params(axis='y', colors=rgb(179, 199, 219))  # Цвет меток по
 plt.tight_layout()
 
 # Сохранение графика в файл
-plt.savefig('5Y.png', dpi=300, bbox_inches='tight')  # Сохранение в формате PNG с разрешением 300 dpi
+plt.savefig('FinanceBot/source/5Y.png', dpi=300, bbox_inches='tight')  # Сохранение в формате PNG с разрешением 300 dpi
 
 # Закрытие графика
 plt.close()
