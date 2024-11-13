@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 from decimal import Decimal
-
+from functions.united_data import united_data
 class Quotation:
     def __init__(self, units, nano):
         self.units = units
@@ -43,6 +43,6 @@ def process_and_separate_quotation_data():
     # Сохранение результата в новый CSV файл
     df.to_csv('C:/FinanceBot/FinanceBot/historical_data/data.csv', index=False)
     print("Файл с данными сохранен в data.csv")
-
+    united_data()
 if __name__ == "__main__":
     process_and_separate_quotation_data()

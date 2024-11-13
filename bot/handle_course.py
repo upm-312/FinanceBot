@@ -1,8 +1,7 @@
-import telebot
 import requests
 
-TOKEN = '8185806685:AAEwqjsn_YyjcKjL_iTWdlqwRGO01XBWaLA'
-bot = telebot.TeleBot(TOKEN)
+#TOKEN = '8185806685:AAEwqjsn_YyjcKjL_iTWdlqwRGO01XBWaLA'
+#bot = telebot.TeleBot(TOKEN)
 
 API_KEY = 'ef38932d54316f2ed0e81d49'
 
