@@ -9,6 +9,7 @@ from bot.handle_course import get_currency_rates
 from bot.bot_instance import bot
 from bot.handle_back import back
 
+
 @bot.message_handler(commands=['start'])
 def handle_start(message):
     send_welcome(message)
